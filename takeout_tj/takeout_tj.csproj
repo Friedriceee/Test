@@ -25,6 +25,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="NUnit" Version="4.3.2" />
     <PackageReference Include="Oracle.EntityFrameworkCore" Version="6.21.150" />
     <PackageReference Include="Quartz" Version="3.13.0" />
     <PackageReference Include="Quartz.AspNetCore" Version="3.13.0" />

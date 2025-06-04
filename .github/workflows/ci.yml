@@ -1,0 +1,55 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '18' # 可根据项目需要更改 Node.js 版本
+
+      - name: Install dependencies for the frontend
+        run: |
+          cd vue_wm_app # 前端项目的目录
+          npm install
+          
+      - name: Run Jest tests
+        run: |
+          cd vue_wm_app # 前端项目的目录
+          npm test
+
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '8.0.303' # 可根据项目需要更改 .NET 版本
+
+      - name: Restore and Run NUnit tests
+        run: |
+          cd takeout_tj # 后端项目的目录
+          dotnet restore
+          dotnet test
+
+      #- name: Run Apifox tests
+       # run: |
+          #cd your_apifox_directory # 替换为 Apifox 的实际路径
+          # 添加执行 Apifox 测试的命令，例如
+          #apifox mock run
+
+      #- name: Run Selenium tests
+       # run: |
+         # cd your_selenium_directory # 替换为 Selenium 测试文件的实际路径
+          # 添加执行 Selenium 测试的命令，例如
+          # 此处假设您有相关的测试脚本
