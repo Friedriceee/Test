@@ -252,30 +252,18 @@ const cancelCreate = () => {
 <template>  
     <slot name="sidebar"></slot>
     <div class="content"> 
-        <header class = "welcome-text">这里是菜单页面&nbsp;{{ merchant.merchantName }}</header>  
+        <header class = "welcome-text">这里是菜单页面&nbsp;{{ merchant?.value?.merchantName }}</header>  
 
         <div class="search-bar" v-if="!isEditing&!isCreating">
-            <el-col :span="8">
+            <div>
                 <el-input  placeholder="请输入关键词..." v-model="searchQuery" clearable @clear="searchDishes" @keydown.enter="searchDishes">
                 <template #append>
                 <el-button type="primary" @click="searchDishes"><el-icon><search /></el-icon></el-button>
                 </template>
                 </el-input>
-            </el-col>
+            </div>
         </div>
-<!--
-        <div class="search-container" v-if="!isEditing&!isCreating">  
-            <input   
-                type="text"   
-                class="search-input"   
-                placeholder="请输入关键词..."   
-                v-model="searchQuery"  
-                v-on:keyup.enter="searchDishes"  
-            >  
-            <button class="search-button" @click="searchDishes">搜索</button> 
-            <button @click="startCreatingDish">新建菜单项</button> 
-        </div>  
--->
+
         <div v-if="!isEditing&!isCreating" class = "dishes-container">
             <div class = "dishes-scroll" >
                 <ul class = "dish-list" >  

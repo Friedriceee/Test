@@ -99,31 +99,7 @@ const validateField = (field) => {  //编辑规则的应用
         }  
     });  
 };  
-onMounted(async () => {  
-    const merchantData = store.state.merchant;
-    merchantInfo(merchantData.MerchantId)
-        .then((res) => {
-            merchantForm.value.MerchantId = res.data.merchantId;  
-            merchantForm.value.MerchantName = res.data.merchantName;  
-            merchantForm.value.Password = merchantData.Password;  
-            merchantForm.value.rePassword = merchantData.Password;  
-            merchantForm.value.MerchantAddress = res.data.merchantAddress;  
-            merchantForm.value.Contact = res.data.contact;   
-            merchantForm.value.CouponType = res.data.couponType;  
-            merchantForm.value.DishType = res.data.dishType;  
-            merchantForm.value.TimeforOpenBusiness=res.data.timeforOpenBusiness;  
-            merchantForm.value.TimeforCloseBusiness=res.data.timeforCloseBusiness;  
-            merchantForm.value.Wallet=res.data.wallet;  
-            merchantForm.value.WalletPassword=res.data.walletPassword;  
-            
-        })
-        .catch((err) => {
-            console.log(err);
-        });
-    await renewTurnoverStat();
-    updateTurnoverInterval = setInterval(renewTurnoverStat, 10000);
 
-});
 const formatTime=(seconds)=> {  
     const hours = Math.floor(seconds / 3600);  
     const minutes = Math.floor((seconds % 3600) / 60);  

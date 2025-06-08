@@ -5,7 +5,11 @@ import path from 'path'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [vue()],
+  plugins: [
+    vue({
+      // 不要加 isCustomElement
+    })
+  ],
   resolve: {
     alias:{
       "~": path.resolve(__dirname, "src"),

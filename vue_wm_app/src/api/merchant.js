@@ -1,5 +1,5 @@
 //导入request.js请求工具
-import request from '@/utils/request.js'
+import request from '../utils/request.js'
 import axios from 'axios'  
 import { ElMessage } from 'element-plus';
 // 设置基本URL，这里使用你后端的地址  
@@ -94,46 +94,47 @@ export const getAllStationInfos=async() => {
         throw error;   
     }
 }
-export const assignStationToMerchant=async(address) => {
-    try {  
-        // 获取所有站点的经纬度信息  
-        const stationsWithCoordinates = await getAllStationInfos();  
+// export const assignStationToMerchant=async(address) => {
+//     try {  
+//         // 获取所有站点的经纬度信息  
+//         const stationsWithCoordinates = await getAllStationInfos();  
 
-        // 获取目标地址的经纬度  
-        const encodedAddress = encodeURIComponent(address); // 对地址进行 URL 编码  
-        const geoResponse = await axios.get(`https://restapi.amap.com/v3/geocode/geo?address=${encodedAddress}&output=JSON&key=873a2f8c732d6cf57df12bc8bef9572e`); // 替换为您的高德地图 API Key  
+//         // 获取目标地址的经纬度  
+//         const encodedAddress = encodeURIComponent(address); // 对地址进行 URL 编码  
+//         const geoResponse = await axios.get(`https://restapi.amap.com/v3/geocode/geo?address=${encodedAddress}&output=JSON&key=873a2f8c732d6cf57df12bc8bef9572e`); // 替换为您的高德地图 API Key  
 
-        const targetLocation = geoResponse.data.geocodes && geoResponse.data.geocodes.length > 0  
-            ? geoResponse.data.geocodes[0].location.split(',')  
-            : [null, null]; // 如果没有获取到经纬度，返回 null  
+//         const targetLocation = geoResponse.data.geocodes && geoResponse.data.geocodes.length > 0  
+//             ? geoResponse.data.geocodes[0].location.split(',')  
+//             : [null, null]; // 如果没有获取到经纬度，返回 null  
 
-        if (targetLocation[0] === null) return null; // 如果没有找到目标地址的经纬度，返回 null  
+//         if (targetLocation[0] === null) return null; // 如果没有找到目标地址的经纬度，返回 null  
 
-        const targetLongitude = parseFloat(targetLocation[0]);  
-        const targetLatitude = parseFloat(targetLocation[1]);  
+//         const targetLongitude = parseFloat(targetLocation[0]);  
+//         const targetLatitude = parseFloat(targetLocation[1]);  
 
-        let nearestStationId = null;  
-        let minDistance = Infinity;  
+//         let nearestStationId = null;  
+//         let minDistance = Infinity;  
 
-        // 计算每个站点与目标地址之间的距离  
-        for (const station of stationsWithCoordinates) {  
-            const stationLongitude = parseFloat(station.Longitude);  
-            const stationLatitude = parseFloat(station.Latitude);  
+//         // 计算每个站点与目标地址之间的距离  
+//         for (const station of stationsWithCoordinates) {  
+//             const stationLongitude = parseFloat(station.Longitude);  
+//             const stationLatitude = parseFloat(station.Latitude);  
 
-            // 使用 Haversine 公式计算距离（单位：千米）  
-            const distance = haversineDistance(targetLatitude, targetLongitude, stationLatitude, stationLongitude);  
+//             // 使用 Haversine 公式计算距离（单位：千米）  
+//             const distance = haversineDistance(targetLatitude, targetLongitude, stationLatitude, stationLongitude);  
 
-            // 如果当前站点距离更近，则更新最近站点 ID 和最小距离  
-            if (distance < minDistance) {  
-                minDistance = distance;  
-                nearestStationId = station.StationId;  
-            }  
-        }  
-        return nearestStationId; // 返回最近站点的 ID  
-    } catch (error) {  
-        throw error; // 抛出错误  
-    }  
-}
+//             // 如果当前站点距离更近，则更新最近站点 ID 和最小距离  
+//             if (distance < minDistance) {  
+//                 minDistance = distance;  
+//                 nearestStationId = station.StationId;  
+//             }  
+//         }  
+//         return nearestStationId; // 返回最近站点的 ID  
+//     } catch (error) {  
+//         throw error; // 抛出错误  
+//     }  
+// }
+
 export const getDistanceBetweenAddresses = async (address1, address2) => {  
     try {  
         // 对地址进行 URL 编码  

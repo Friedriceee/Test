@@ -2,7 +2,7 @@
  
 //导入axios  npm install axios
 import axios from 'axios';
-import { toast } from '@/utils/util';
+import { toast } from '../utils/util';
 
 //定义一个变量,记录公共的前缀  ,  baseURL
 const baseURL = '/api';

@@ -117,11 +117,11 @@ const renewOrders = async() => {  //更新order信息
     }
 }
 // 语音朗读功能  
-const speak = (text) => {  
-    const utterance = new SpeechSynthesisUtterance(text);  
-    utterance.lang = 'zh-CN'; // 设置语言为中文  
-    speechSynthesis.speak(utterance);  
-}; 
+// const speak = (text) => {  
+//     const utterance = new SpeechSynthesisUtterance(text);  
+//     utterance.lang = 'zh-CN'; // 设置语言为中文  
+//     speechSynthesis.speak(utterance);  
+// }; 
 // 实现倒计时  
 const updateCountdowns = () => {  
     for(const order of pendingOrders.value) {  
@@ -230,7 +230,6 @@ function formatDateTime(time) {
 </script>  
 
 <template>
-    <!-- 左侧导航栏 在dish和personal界面下出现主页按钮的虚影，不知道是哪里的bug-->
     <nav class="sidebar">
       <slot class="sidebar-content">
         <img class="sidebar-img" src="@\assets\my_logo.png" alt="logo"/>
