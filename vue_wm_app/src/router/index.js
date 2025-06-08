@@ -1,6 +1,6 @@
 import {
     createRouter,
-    createWebHashHistory
+    createWebHistory
 } from 'vue-router'
 
 import Index from '@/views/Index.vue'
@@ -177,8 +177,11 @@ const dynamicRouters = [{
 
 // 创建router 实例, 并暴露
 export const router = createRouter({
-    history: createWebHashHistory(),
-    routes: routers
+    history: createWebHistory(),
+    routes: [
+        ...routers,
+        { path: '/', component: { template: '<div>Home</div>' } } // 添加一个默认路由
+    ]
 })
 // 路由守卫  
 
