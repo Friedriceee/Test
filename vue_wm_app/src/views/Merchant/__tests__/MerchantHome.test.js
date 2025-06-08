@@ -4,6 +4,11 @@ import ElementPlus from 'element-plus';
 import { createStore } from 'vuex';
 import { createRouter, createWebHistory } from 'vue-router';
 import { ElMessage } from 'element-plus'; // 引入 ElementPlus 的 Message 组件
+import axios from 'axios';
+import { vi } from 'vitest';
+
+// Mock Axios
+vi.mock('axios');
 
 // 创建一个简单的 Vuex store
 const store = createStore({
@@ -54,24 +59,29 @@ const store = createStore({
   },
 });
 
+// 设置路由
 const router = createRouter({
   history: createWebHistory(),
-  routes: [],
+  routes: [
+    { path: '/', component: MerchantHome }, // 确保路径与组件配置正确
+    { path: '/merchant-home', component: MerchantHome }, // 假设有这个组件
+    // 添加其他必要的路由
+  ],
 });
 
 describe('MerchantHome.vue', () => {
   let wrapper;
 
   beforeEach(() => {
+    // Mock Axios 返回的数据
+    axios.get.mockResolvedValueOnce({ data: { /* 模拟的数据 */ } });
+
     wrapper = mount(MerchantHome, {
       global: {
         plugins: [ElementPlus, store, router],
       },
     });
   });
-
- 
-
 
   it('查看订单详情', async () => {
     await wrapper.vm.renewOrders(); // 加载订单
@@ -84,8 +94,6 @@ describe('MerchantHome.vue', () => {
       expect(wrapper.vm.isOrderInfo).toBe(true); // 确认已显示订单详情
     }
   });
-
- 
 
   it('浏览不同的页面', async () => {
     await wrapper.vm.goToMenu(); // 点击进入菜单页面
